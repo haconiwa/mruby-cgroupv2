@@ -1,0 +1,6 @@
+name: mruby-cgroupv2
+description: CgroupV2 class
+author: Uchio Kondo
+website: https://github.com/haconiwa/mruby-cgroupv2
+protocol: git
+repository: https://github.com/haconiwa/mruby-cgroupv2.git
