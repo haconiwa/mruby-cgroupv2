@@ -1,3 +1,5 @@
+dist: trusty
+
 language: c
 compiler:
   - gcc
@@ -12,9 +14,21 @@ branches:
   only:
     - master
 
-before_install:
-  - sudo apt-get -qq update
-install:
-  - sudo apt-get -qq install rake bison git gperf
+addons:
+  apt:
+    packages:
+      - rake
+      - bison
+      - git
+      - gperf
+      - aclocal
+      - automake
+      - autoconf
+      - autotools-dev
+
 script:
   - rake test
+
+notifications:
+  slack:
+    secure: OEt2WrkYmsGPU9RO+78U4JAMmncE9dA308nhawNKltmIA5dZ0g5nGk/xIFtOCEUz9+OnpxO1zgF4iIYOJLZtS1UI17Q9kP/5tj23bwZUcyuOEir2XynTigDpDaO4CVhKIPXydvEbxsN0ya9vE/dWBly593THbdRvbBq18dFbjHLfkUUh01wsrM4cfl7eAG6zg7CmBTMPD5Ia7JBz1mZcCY2wc4lUSrUVGAUDpXZdJeR5CxGrEJQkn/+wPGBjMBYi/WylPfzTAOC8dOidhn+9/de7FFSCitx29Bczpxbe8uZ9Y87qpLcf53HFA0wRruRvi8rAB1xvFtBiOcyqHZbaoiWUdCfvp+T8khMPzwYY1ZRAygHQbK7FKN80kfITc0C42wbcG1pK1XF445vYX+MkxGKEM7D63sDDNcLdniel3rntObqo1BQDjH6UfOFoSJ8JdkGkZa1hsfVvFN64Sdm5iONPFgG8QT89wFol8Tru7F8POlZafDd3OimlA5A+2f4a20i/BVzlRPLlt6iiP1cwg+hr0Fh5w1N1q2kEQXGp9PuAHDGllKUvHDiywiKsbMaZw52xBzsM8Q66oAuyLNp88knqmvsTkwUBx39NXQfsQPWeXWLAGuYLcjEiAE9drSaIIKK3yCl2kGBfKIv3xDCrjYeFZE7OQ2iDi8qU+p6lfLk=
