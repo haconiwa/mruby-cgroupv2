@@ -7,4 +7,5 @@ MRuby::Build.new do |conf|
 
   conf.gem '../mruby-cgroupv2'
   conf.enable_test
+  conf.enable_debug
 end

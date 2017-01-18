@@ -2,6 +2,10 @@ module CgroupV2
   class << self
     attr_writer :mount_path, :root
 
+    def new_group(name)
+      Group.new(name)
+    end
+
     def mount_path
       @mount_path ||= "/cgroup2"
     end
@@ -35,6 +39,13 @@ module CgroupV2
       @changed = []
     end
     attr_reader :path
+
+    def create
+      dir = to_fullpath("")
+      unless File.exist? dir
+        Dir.mkdir dir
+      end
+    end
 
     def controllers
       read_file("cgroup.controllers").split(" ")
@@ -85,13 +96,14 @@ module CgroupV2
           write_file(key, self[key])
         end
       end
-      real_changed = @changed
-      @changed = []
+      real_changed = @changed.uniq
       reload
       return real_changed
     end
+    alias modify commit
 
     def reload
+      @changed = []
       @params = {}
     end
 
@@ -102,16 +114,16 @@ module CgroupV2
     private
 
     def to_fullpath(subpath)
-      path = CgroupV2.mount_path + "/" + path + subpath
-      while path.include? "//"
-        path.sub!("//", "/")
+      p = CgroupV2.mount_path + "/" + path + subpath
+      while p.include? "//"
+        p.sub!("//", "/")
       end
-      path
+      p
     end
 
     def read_file(subpath)
       f = File.open(to_fullpath(subpath), "r")
-      vallue = f.read
+      value = f.read
       f.close
       value
     end
