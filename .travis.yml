@@ -1,4 +1,4 @@
-dist: trusty
+sudo: false
 
 language: c
 compiler:
@@ -21,7 +21,6 @@ addons:
       - bison
       - git
       - gperf
-      - aclocal
       - automake
       - autoconf
       - autotools-dev
