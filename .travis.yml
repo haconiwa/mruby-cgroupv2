@@ -21,7 +21,6 @@ addons:
       - bison
       - git
       - gperf
-      - aclocal
       - automake
       - autoconf
       - autotools-dev
