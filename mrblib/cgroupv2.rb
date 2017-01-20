@@ -41,7 +41,7 @@ module CgroupV2
     attr_reader :path
 
     def create
-      dir = to_fullpath("")
+      dir = to_fullpath
       unless File.exist? dir
         Dir.mkdir dir
       end
@@ -111,9 +111,16 @@ module CgroupV2
       write_file("cgroup.procs", Process.pid, "a")
     end
 
+    def delete
+      dir = to_fullpath
+      if File.exist? dir
+        Dir.rmdir dir
+      end
+    end
+
     private
 
-    def to_fullpath(subpath)
+    def to_fullpath(subpath="")
       p = CgroupV2.mount_path + "/" + path + subpath
       while p.include? "//"
         p.sub!("//", "/")
