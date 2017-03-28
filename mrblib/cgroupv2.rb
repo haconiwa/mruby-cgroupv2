@@ -3,7 +3,7 @@ module CgroupV2
     attr_writer :mount_path, :root
 
     def new_group(name)
-      Group.new(name)
+      ::CgroupV2::Group.new(name)
     end
 
     def mount_path
@@ -11,7 +11,7 @@ module CgroupV2
     end
 
     def root
-      @__root ||= Group.new("/")
+      @__root ||= ::CgroupV2::Group.new("/")
     end
 
     def controllers
